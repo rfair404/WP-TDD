@@ -1,0 +1,45 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+    - db_data:/var/lib/mysql
+    restart: always
+    ports:
+    - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_root_password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress_user
+      MYSQL_PASSWORD: mysql_password
+
+  wordpress:
+    depends_on:
+    - db
+    image: wordpress:php7.2
+    ports:
+    - "8000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress_user
+      WORDPRESS_DB_PASSWORD: mysql_password
+    volumes:
+    - ./web:/var/www/html
+    - ./test:/var/www/test
+    - ./vendor:/var/www/vendor
+
+
+  wpcli:
+    image: wordpress:cli-2.0.1-php7.2
+    volumes:
+      - ./web:/var/www/html
+
+    links:
+      - db:mysql
+    entrypoint: wp
+    command: "--info"
+
+volumes:
+  db_data:
