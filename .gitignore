@@ -3,6 +3,7 @@
 
 # Ignore everything in WP except for the custom plugins and themes (specify manually).
 web/
+!web/wp-content/plugins/example-plugin
 
 # Dependencies
 vendor/
