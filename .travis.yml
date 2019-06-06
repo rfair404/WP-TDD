@@ -56,3 +56,6 @@ script:
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
       phpcs
     fi
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
