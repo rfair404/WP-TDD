@@ -1,0 +1,10 @@
+# IDE generated files #
+.idea
+
+# Ignore everything in WP except for the custom plugins and themes (specify manually).
+web/
+
+# Dependencies
+vendor/
+
+
