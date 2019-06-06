@@ -50,7 +50,7 @@ before_script:
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      vendor/bin/phpunit --coverage-clover=coverage.xml
+      vendor/bin/phpunit -c test/phpunit.xml --coverage-clover=coverage.xml
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
