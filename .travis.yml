@@ -7,10 +7,6 @@ notifications:
     on_success: never
     on_failure: change
 
-branches:
-  only:
-    - master
-
 cache:
   directories:
     - vendor
@@ -20,12 +16,13 @@ matrix:
   include:
     - php: 7.2
       env: WP_VERSION=latest
-    - php: 7.1
-      env: WP_VERSION=latest
+#    - php: 7.1
+#      env: WP_VERSION=latest
 
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - composer update
   - |
     if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
       phpenv config-rm xdebug.ini
@@ -38,7 +35,7 @@ before_script:
       if [[ ${TRAVIS_PHP_VERSION:0:2} == "5." ]]; then
         composer global require "phpunit/phpunit=4.8.*"
       else
-        composer global require "phpunit/phpunit=5.7.*"
+        composer global require "phpunit/phpunit=6.5.*"
       fi
     fi
   - |
@@ -50,10 +47,12 @@ before_script:
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      phpunit
-      WP_MULTISITE=1 phpunit
+      phpunit -c test/phpunit.xml
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
       phpcs
     fi
+
+#after_success:
+#    - bash <(curl -s https://codecov.io/bash)

@@ -30,12 +30,10 @@ services:
     - ./test:/var/www/test
     - ./vendor:/var/www/vendor
 
-
   wpcli:
     image: wordpress:cli-2.0.1-php7.2
     volumes:
       - ./web:/var/www/html
-
     links:
       - db:mysql
     entrypoint: wp
