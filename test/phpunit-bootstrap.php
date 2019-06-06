@@ -1,5 +1,5 @@
 <?php
-define( 'WP_CONTENT_DIR', __DIR__ . '/web/wp-content/' );
+define( 'WP_CONTENT_DIR', dirname( dirname ( __FILE__ ) ) . '/html/wp-content/' );
 define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . 'plugins/' );
 define( 'WP_MU_PLUGIN_DIR', WP_CONTENT_DIR . 'mu-plugins/' );
 
@@ -22,11 +22,11 @@ if ( ! file_exists( $_tests_dir . '/includes/' ) ) {
 require_once $_tests_dir . '/includes/functions.php';
 
 // Require the composer installed files.
-require_once 'vendor/autoload.php';
+require_once dirname( dirname( __FILE__) ) . '/vendor/autoload.php';
 
 // Manually Load each plugin to be tested.
 function _manually_load_plugin() {
-    
+
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

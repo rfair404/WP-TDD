@@ -47,12 +47,12 @@ before_script:
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      phpunit -c test/phpunit.xml --coverage-clover=coverage.xml
+      phpunit -c test/phpunit.xml
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
       phpcs
     fi
 
-after_success:
-    - bash <(curl -s https://codecov.io/bash)
+#after_success:
+#    - bash <(curl -s https://codecov.io/bash)
